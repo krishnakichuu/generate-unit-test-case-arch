@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Test Generator Architecture</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e2e;
+            color: #cdd6f4;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #2a2b3c;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #89dceb;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        .diagram-container {
+            background-color: #313244;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .diagram-container:hover {
+            box-shadow: 0 0 15px rgba(137, 220, 235, 0.5);
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #89b4fa;
+            color: #1e1e2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        button:hover {
+            background-color: #b4befe;
+            transform: translateY(-2px);
+        }
+        .description {
+            line-height: 1.6;
+            padding: 15px;
+            background-color: #313244;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .section-title {
+            color: #f5c2e7;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .step {
+            display: flex;
+            margin: 10px 0;
+        }
+        .step-number {
+            background-color: #f38ba8;
+            color: #1e1e2e;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        .step-content {
+            flex-grow: 1;
+        }
+        pre {
+            background-color: #45475a;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        code {
+            font-family: 'Fira Code', monospace;
+            color: #a6e3a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Test Generator Architecture</h1>
+        
+        <div class="controls">
+            <button id="zoomIn">Zoom In</button>
+            <button id="zoomOut">Zoom Out</button>
+            <button id="toggleTheme">Toggle Theme</button>
+            <button id="downloadSVG">Download SVG</button>
+        </div>
+        
+        <div class="diagram-container" id="diagram">
+            <pre class="mermaid">
+flowchart TD
+    A[Start CLI App] --> B[Read Code File]
+    B --> C[Extract Method for Testing]
+    C --> D[Preprocess Method Code]
+    D --> E[Send to Local Model]
+    E --> F[Receive Initial Unit Test]
+    F --> G[Enhance Test with Public Large Model]
+    G --> H[Receive Enhanced Professional Test]
+    H --> I[Generate Final Unit Test File]
+    I --> J[Save to Project Directory]
+    J --> K[End]
+    
+    subgraph "Local Processing"
+        B
+        C
+        D
+    end
+    
+    subgraph "Local Model Processing"
+        E
+        F
+    end
+    
+    subgraph "Public Model Enhancement"
+        G
+        H
+    end
+    
+    subgraph "Output Generation"
+        I
+        J
+    end
+            </pre>
+        </div>
+        
+        <div class="description">
+            <h2 class="section-title">Architecture Explanation</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content"><strong>Start CLI App</strong>: The application launches via command line interface.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content"><strong>Read Code File</strong>: The app reads the specified code source file.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content"><strong>Extract Method for Testing</strong>: The app identifies and extracts the specific method(s) that need unit testing.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content"><strong>Preprocess Method Code</strong>: The extracted code is formatted and prepared for model input.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content"><strong>Send to Local Model</strong>: The preprocessed code is sent to a locally running model.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content"><strong>Receive Initial Unit Test</strong>: The local model generates a basic unit test for the method.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">7</div>
+                <div class="step-content"><strong>Enhance Test with Public Large Model</strong>: The initial unit test is sent to a public large language model with instructions to enhance and professionalize it.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">8</div>
+                <div class="step-content"><strong>Receive Enhanced Professional Test</strong>: The public model returns an improved, professional-quality unit test.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">9</div>
+                <div class="step-content"><strong>Generate Final Unit Test File</strong>: The app formats the enhanced test into a proper unit test file.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">10</div>
+                <div class="step-content"><strong>Save to Project Directory</strong>: The final unit test is saved in the appropriate project directory.</div>
+            </div>
+        </div>
+        
+        <div class="mermaid-code">
+            <h2 class="section-title">Mermaid Code</h2>
+            <pre><code id="mermaidCode">flowchart TD
+    A[Start CLI App] --> B[Read Code File]
+    B --> C[Extract Method for Testing]
+    C --> D[Preprocess Method Code]
+    D --> E[Send to Local Model]
+    E --> F[Receive Initial Unit Test]
+    F --> G[Enhance Test with Public Large Model]
+    G --> H[Receive Enhanced Professional Test]
+    H --> I[Generate Final Unit Test File]
+    I --> J[Save to Project Directory]
+    J --> K[End]
+    
+    subgraph "Local Processing"
+        B
+        C
+        D
+    end
+    
+    subgraph "Local Model Processing"
+        E
+        F
+    end
+    
+    subgraph "Public Model Enhancement"
+        G
+        H
+    end
+    
+    subgraph "Output Generation"
+        I
+        J
+    end</code></pre>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            theme: 'dark',
+            startOnLoad: true,
+            securityLevel: 'loose',
+            themeVariables: {
+                primaryColor: '#89b4fa',
+                primaryBorderColor: '#89dceb',
+                primaryTextColor: '#1e1e2e',
+                secondaryColor: '#a6e3a1',
+                secondaryBorderColor: '#89dceb',
+                secondaryTextColor: '#1e1e2e',
+                tertiaryColor: '#fab387',
+                tertiaryBorderColor: '#f38ba8',
+                tertiaryTextColor: '#1e1e2e',
+                noteBackgroundColor: '#f9e2af',
+                noteBorderColor: '#f38ba8',
+                noteTextColor: '#1e1e2e',
+                fontSize: '16px'
+            }
+        });
+
+        // Current zoom level
+        let zoomLevel = 1;
+        const diagram = document.getElementById('diagram');
+        
+        // Zoom in button
+        document.getElementById('zoomIn').addEventListener('click', () => {
+            zoomLevel += 0.1;
+            diagram.style.transform = `scale(${zoomLevel})`;
+            diagram.style.transformOrigin = 'center';
+            diagram.style.margin = '50px auto';
+        });
+        
+        // Zoom out button
+        document.getElementById('zoomOut').addEventListener('click', () => {
+            if (zoomLevel > 0.5) {
+                zoomLevel -= 0.1;
+                diagram.style.transform = `scale(${zoomLevel})`;
+                diagram.style.transformOrigin = 'center';
+                diagram.style.margin = '50px auto';
+            }
+        });
+        
+        // Theme toggle
+        let darkTheme = true;
+        document.getElementById('toggleTheme').addEventListener('click', () => {
+            darkTheme = !darkTheme;
+            if (darkTheme) {
+                document.body.style.backgroundColor = '#1e1e2e';
+                document.body.style.color = '#cdd6f4';
+                mermaid.initialize({
+                    theme: 'dark'
+                });
+            } else {
+                document.body.style.backgroundColor = '#f6f6f9';
+                document.body.style.color = '#333';
+                mermaid.initialize({
+                    theme: 'default'
+                });
+            }
+            // Re-render mermaid diagram
+            mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        });
+        
+        // Download SVG
+        document.getElementById('downloadSVG').addEventListener('click', () => {
+            const svgElement = document.querySelector('.mermaid svg');
+            if (svgElement) {
+                const svgData = new XMLSerializer().serializeToString(svgElement);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const svgUrl = URL.createObjectURL(svgBlob);
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = svgUrl;
+                downloadLink.download = 'unit-test-generator-architecture.svg';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(svgUrl);
+            } else {
+                alert('SVG not yet rendered. Please wait a moment and try again.');
+            }
+        });
+    </script>
+</body>
+</html>
